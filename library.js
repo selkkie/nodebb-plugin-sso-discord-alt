@@ -35,7 +35,7 @@ const constants = {
   name: 'discord',
   admin: {
     route: '/plugins/sso-discord-alt',
-    icon: 'fa-pied-piper'
+    icon: 'fa-cc-discover'
   },
   oauth: { // a passport-oauth2 options object
     authorizationURL: 'https://discordapp.com/api/v6/oauth2/authorize',
@@ -55,6 +55,7 @@ const DiscordAuth = {}
  */
 DiscordAuth.init = function (data, callback) {
   log('initializing')
+
   function render (req, res, next) {
     log('rendering admin view')
     res.render('admin/plugins/sso-discord-alt', {})
@@ -91,6 +92,7 @@ DiscordAuth.getStrategy = function (strategies, callback) {
 
     options.clientID = settings.id
     options.clientSecret = settings.secret
+    if (settings.url) options.callbackURL = settings.url + '/auth/' + constants.name + '/callback'
 
     function PassportOAuth () {
       OAuth2Strategy.apply(this, arguments)
@@ -98,11 +100,11 @@ DiscordAuth.getStrategy = function (strategies, callback) {
     require('util').inherits(PassportOAuth, OAuth2Strategy)
 
     /**
-     * Invoked by the OAuth2Strategy prior to the verify callback being invoked.
-     *
-     * @param {string} accessToken API access token as returned by the remote service.
-     * @param {function} done Callback to be invoked when profile parsing is finished.
-     */
+         * Invoked by the OAuth2Strategy prior to the verify callback being invoked.
+         *
+         * @param {string} accessToken API access token as returned by the remote service.
+         * @param {function} done Callback to be invoked when profile parsing is finished.
+         */
     PassportOAuth.prototype.userProfile = function (accessToken, done) {
       log('getting user profile from remote service')
       this._oauth2._useAuthorizationHeaderForGET = true
@@ -150,25 +152,28 @@ DiscordAuth.getAssociation = function (data, callback) {
   log('determining if user is associated with discord')
   User.getUserField(data.uid, 'discordId', function (err, discordId) {
     if (err) return callback(err, data)
-
-    if (discordId) {
-      log('user is associated with discord')
-      data.associations.push({
-        associated: true,
-        url: 'https://discordapp.com/channels/@me',
-        name: constants.name,
-        icon: constants.admin.icon
-      })
-    } else {
-      log('user is not asscociated with discord')
-      data.associations.push({
-        associated: false,
-        url: nconf.get('url') + '/auth/discord',
-        name: constants.name,
-        icon: constants.admin.icon
-      })
-    }
-
+    meta.settings.get('sso-discord-alt', function (err, settings) {
+      if (err) return callback(err, data)
+      var c = settings.url
+      if (!c) c = nconf.get('url')
+      if (discordId) {
+        log('user is associated with discord')
+        data.associations.push({
+          associated: true,
+          url: 'https://discordapp.com/channels/@me',
+          name: constants.name,
+          icon: constants.admin.icon
+        })
+      } else {
+        log('user is not asscociated with discord')
+        data.associations.push({
+          associated: false,
+          url: c + '/auth/discord',
+          name: constants.name,
+          icon: constants.admin.icon
+        })
+      }
+    })
     callback(null, data)
   })
 }
@@ -184,7 +189,9 @@ DiscordAuth.login = function (profile, callback) {
     // Existing User
     if (uid !== null) {
       log('user already exists: %s', uid)
-      return callback(null, {uid})
+      return callback(null, {
+        uid
+      })
     }
 
     // New User
@@ -194,7 +201,9 @@ DiscordAuth.login = function (profile, callback) {
       // Save provider-specific information to the user
       User.setUserField(uid, constants.name + 'Id', profile.id)
       db.setObjectField(constants.name + 'Id:uid', profile.id, uid)
-      callback(null, {uid})
+      callback(null, {
+        uid
+      })
     }
 
     User.getUidByEmail(profile.email, function (err, uid) {
