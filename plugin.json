@@ -1,18 +1,33 @@
 {
-  "id": "nodebb-plugin-sso-discord-alt",
-  "name": "NodeBB Discord SSO",
-  "description": "NodeBB Plugin that allows users to login/register via Discord",
-  "url": "https://github.com/jsumners/nodebb-plugin-sso-discord-alt",
-  "library": "./library.js",
-  "templates": "templates",
-  "hooks": [
-    { "hook": "static:app.load", "method": "init" },
-    { "hook": "static:user.delete", "method": "deleteUserData" },
-    { "hook": "filter:auth.list", "method": "getAssociation" },
-    { "hook": "filter:auth.init", "method": "getStrategy" },
-    { "hook": "filter:admin.header.build", "method": "addMenuItem" }
+    "id": "nodebb-plugin-sso-discord-with-logo",
+    "name": "NodeBB Discord SSO",
+    "description": "NodeBB Plugin that allows users to login/register via Discord",
+    "url": "https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo",
+    "library": "./library.js",
+    "templates": "templates",
+    "hooks": [
+        {
+            "hook": "static:app.load",
+            "method": "init"
+        },
+        {
+            "hook": "static:user.delete",
+            "method": "deleteUserData"
+        },
+        {
+            "hook": "filter:auth.list",
+            "method": "getAssociation"
+        },
+        {
+            "hook": "filter:auth.init",
+            "method": "getStrategy"
+        },
+        {
+            "hook": "filter:admin.header.build",
+            "method": "addMenuItem"
+        }
   ],
-  "acpScripts": [
+    "acpScripts": [
     "acp/admin/admin.js"
   ]
 }

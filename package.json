@@ -1,13 +1,13 @@
 {
-  "name": "nodebb-plugin-sso-discord-alt",
-  "version": "1.0.1",
-  "description": "NodeBB Discord OAuth2 SSO",
-  "main": "library.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jsumners/nodebb-plugin-sso-discord-alt.git"
-  },
-  "keywords": [
+    "name": "nodebb-plugin-sso-discord-with-logo",
+    "version": "1.0.1",
+    "description": "NodeBB Discord OAuth2 SSO",
+    "main": "library.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo.git"
+    },
+    "keywords": [
     "nodebb",
     "plugin",
     "oauth2",
@@ -16,40 +16,45 @@
     "login",
     "registration"
   ],
-  "author": {
-    "name": "James Sumners",
-    "email": "james.sumners@gmail.com"
+    "author": {
+        "name": "selkie",
+        "email": "selkie@selkie.is"
+    },
+    "contributors": [
+        {
+            "name": "James Sumners",
+            "email": "james.sumners@gmail.com",
+            "url": "https://github.com/jsumners"
   },
-  "contributors": [
-    {
-      "name": "Julian Lam",
-      "email": "julian@nodebb.org",
-      "url": "https://github.com/julianlam"
+        {
+            "name": "Julian Lam",
+            "email": "julian@nodebb.org",
+            "url": "https://github.com/julianlam"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jsumners/nodebb-plugin-sso-discord-alt/issues"
-  },
-  "readme": "",
-  "readmeFilename": "README.md",
-  "scripts": {
-    "lint": "standard | snazzy"
-  },
-  "precommit": [
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo/issues"
+    },
+    "readme": "",
+    "readmeFilename": "README.md",
+    "scripts": {
+        "lint": "standard | snazzy"
+    },
+    "precommit": [
     "lint"
   ],
-  "dependencies": {
-    "passport-oauth": "~1.0.0",
-    "quick-format": "^2.1.0"
-  },
-  "nbbpm": {
-    "compatibility": "^1.5",
-    "index": false
-  },
-  "devDependencies": {
-    "pre-commit": "^1.2.2",
-    "snazzy": "^7.0.0",
-    "standard": "^10.0.2"
-  }
+    "dependencies": {
+        "passport-oauth": "~1.0.0",
+        "quick-format": "^2.1.0"
+    },
+    "nbbpm": {
+        "compatibility": "^1.5",
+        "index": false
+    },
+    "devDependencies": {
+        "pre-commit": "^1.2.2",
+        "snazzy": "^7.0.0",
+        "standard": "^10.0.2"
+    }
 }
