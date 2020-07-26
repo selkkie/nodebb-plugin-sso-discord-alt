@@ -23,6 +23,11 @@
                 <label for="discord_secret">Secret</label>
                 <input type="text" id="discord_secret" name="secret" title="Client Secret" class="form-control" placeholder="Client Secret">
             </div>
+            <div class="form-group">
+                <label for="override_url">Bot Token</label>
+                <p>Used for pulling information from Discord (such as avatars).</p>
+                <input type="text" id="discord_token" name="token" title="Bot Token" class="form-control input-lg" placeholder="Enter token here">
+            </div>
             <div class="checkbox">
                 <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
                     <input type="checkbox" class="mdl-switch__input" name="autoconfirm">
@@ -34,6 +39,7 @@
                 <p>This is primarily for local testing, otherwise IGNORE this input. Use http://lvh.me:XXXX instead of localhost.</p>
                 <input type="text" id="override_url" name="url" title="Override Url" class="form-control input-lg" placeholder="Enter root URL here">
             </div>
+
         </form>
     </div>
 </div>

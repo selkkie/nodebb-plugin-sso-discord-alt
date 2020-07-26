@@ -8,14 +8,14 @@
         "url": "https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo.git"
     },
     "keywords": [
-    "nodebb",
-    "plugin",
-    "oauth2",
-    "sso",
-    "single sign on",
-    "login",
-    "registration"
-  ],
+        "nodebb",
+        "plugin",
+        "oauth2",
+        "sso",
+        "single sign on",
+        "login",
+        "registration"
+    ],
     "author": {
         "name": "selkie",
         "email": "selkie@selkie.is"
@@ -25,13 +25,13 @@
             "name": "James Sumners",
             "email": "james.sumners@gmail.com",
             "url": "https://github.com/jsumners"
-  },
+        },
         {
             "name": "Julian Lam",
             "email": "julian@nodebb.org",
             "url": "https://github.com/julianlam"
-    }
-  ],
+        }
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo/issues"
@@ -42,9 +42,10 @@
         "lint": "standard | snazzy"
     },
     "precommit": [
-    "lint"
-  ],
+        "lint"
+    ],
     "dependencies": {
+        "discord.js": "^12.2.0",
         "passport-oauth": "~1.0.0",
         "quick-format": "^2.1.0"
     },

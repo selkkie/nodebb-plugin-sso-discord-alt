@@ -5,6 +5,8 @@ This plugin for [NodeBB](https://github.com/NodeBB/NodeBB/) provides a way to re
 Discord icon available on the login screen. Click that icon to authenticate
 against Discord.
 
+New users who register using Discord should have their avatar carry over automatically rather than using the default avatar.
+
 ## Using the Discord Logo:
 
 I have included a modified version of the FontAwesome font that replaces the Discover card (fa-cc-discover) with a simplified Discord logo. I've picked Discover to overwrite because it starts with the same letters, so it's intuitive to search in the NodeBB icon box in case you want to use it elsewhere.
@@ -18,11 +20,18 @@ If using the Discover card is unacceptable for you, you can do what I did and ma
 
 1. Create an application -- https://discordapp.com/developers/applications/me
 2. Ensure the application's URI ends with `/auth/discord/callback`
-3. Fill in the id and secret for the application via the NodeBB admin control panel (under "Social Authentication")
+3. Create a bot for your application
+4. Fill in the id, secret, and bot token for the application via the NodeBB admin control panel (under "Social Authentication")
 
 ## Local Testing URL Override
 
 I've added a setting in the admin panel that allows a workaround when testing local setups. Localhost isn't a valid OAuth URL, so to bypass this you can use [http://lvh.me](http://lvh.me), which will always resolve to 127.0.0.1. Just enter http://lvh.me:4567 (or whatever your port number is).
+(Don't forget to add lvh.me to your application URI in the discord application settings as well!)
+
+## To Do
+* Clone and upload avatar locally instead of linking to Discord server
+* Fix bug where existing users can't associate
+* Make Discord handle information viewable from profile
 
 ## Acknowledgements
 
