@@ -29,9 +29,10 @@ I've added a setting in the admin panel that allows a workaround when testing lo
 (Don't forget to add lvh.me to your application URI in the discord application settings as well!)
 
 ## To Do
+* Restructure so E-mail doesn't need to match to associate (Keeps making new users)
 * Clone and upload avatar locally instead of linking to Discord server
-* Fix bug where existing users can't associate
 * Make Discord handle information viewable from profile
+* Add button to Profile Picture editor that allows you to pull your avatar from Discord?
 
 ## Acknowledgements
 
