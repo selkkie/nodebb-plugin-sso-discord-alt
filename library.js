@@ -1,15 +1,15 @@
 'use strict'
 
-const User = module.parent.require('./user')
+const User = require.main.require('./src/user')
 const InternalOAuthError = require('passport-oauth').InternalOAuthError
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy
-const meta = module.parent.require('./meta')
-const db = module.parent.require('../src/database')
-const passport = module.parent.require('passport')
-const nconf = module.parent.require('nconf')
-const winston = module.parent.require('winston')
-const async = module.parent.require('async')
-const authenticationController = module.parent.require('./controllers/authentication')
+const meta = require.main.require('./src/meta')
+const db = require.main.require('./src/database')
+const passport = require.main.require('passport')
+const nconf = require.main.require('nconf')
+const winston = require.main.require('winston')
+const async = require.main.require('async')
+const authenticationController = require.main.require('./src/controllers/authentication')
 const quickFormat = require('quick-format')
 
 const client = new (require('discord.js')).Client()
@@ -44,12 +44,8 @@ function logWarn () {
   doLog.apply(null, [winston.warn].concat(Array.from(arguments)))
 }
 
-function capitalize ([first, ...rest]) {
-  return [first.toUpperCase(), ...rest].join('')
-}
-
 const constants = {
-  name: 'discord',
+  name: 'Discord',
   admin: {
     route: '/plugins/sso-discord-alt',
     icon: 'fa-cc-discover'
@@ -98,7 +94,7 @@ DiscordAuth.addMenuItem = function (customHeader, callback) {
 DiscordAuth.getStrategy = function (strategies, callback) {
   log('adding authentication strategy')
   const options = constants.oauth
-  options.callbackURL = nconf.get('url') + '/auth/' + constants.name + '/callback'
+  options.callbackURL = nconf.get('url') + '/auth/' + constants.name.toLowerCase() + '/callback'
 
   meta.settings.get('sso-discord-alt', function (err, settings) {
     if (err) return callback(err)
@@ -109,7 +105,7 @@ DiscordAuth.getStrategy = function (strategies, callback) {
 
     options.clientID = settings.id
     options.clientSecret = settings.secret
-    if (settings.url) options.callbackURL = settings.url + '/auth/' + constants.name + '/callback'
+    if (settings.url) options.callbackURL = settings.url + '/auth/' + constants.name.toLowerCase() + '/callback'
 
     function PassportOAuth () {
       OAuth2Strategy.apply(this, arguments)
@@ -155,9 +151,9 @@ DiscordAuth.getStrategy = function (strategies, callback) {
     passport.use(constants.name, authenticator)
 
     strategies.push({
-      name: capitalize(constants.name),
+      name: constants.name,
       url: '/auth/' + constants.name,
-      callbackURL: `/auth/${constants.name}/callback`,
+      callbackURL: `/auth/${constants.name.toLowerCase()}/callback`,
       icon: constants.admin.icon,
       scope: ['identify', 'email']
     })
@@ -180,7 +176,7 @@ DiscordAuth.getAssociation = function (data, callback) {
         data.associations.push({
           associated: true,
           url: 'https://discordapp.com/channels/@me',
-          name: capitalize(constants.name),
+          name: constants.name,
           icon: constants.admin.icon
         })
       } else {
@@ -188,7 +184,7 @@ DiscordAuth.getAssociation = function (data, callback) {
         data.associations.push({
           associated: false,
           url: c + '/auth/discord',
-          name: capitalize(constants.name),
+          name: constants.name,
           icon: constants.admin.icon
         })
       }
