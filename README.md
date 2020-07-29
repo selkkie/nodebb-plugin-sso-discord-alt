@@ -38,7 +38,7 @@ Just modify profile.tpl and use
     <!-- ENDIF discordData -->
 ```
 or, if you'd like to inject the data directly, use variables such as {discordData.username}.
-Currently you can access username, discriminator, id, and pfp (avatar URL), but theoretically any information that can be pulled from Discord.js can be added to [DiscordAuth.filterAccount](https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo/blob/master/library.js#L331).
+Currently you can access username, discriminator, id, and pfp (avatar URL), but theoretically any information that can be pulled from Discord.js can be added to [DiscordAuth.filterAccount](https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo/blob/69b347caa536cae9ab8a39e5c196584e4e869a0c/library.js#L324).
 
 ## Local Testing URL Override
 
