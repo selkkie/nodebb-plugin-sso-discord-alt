@@ -7,6 +7,15 @@ against Discord.
 
 New users who register using Discord should have their avatar carry over automatically rather than using the default avatar.
 
+## Config
+
+1. Create an application -- https://discordapp.com/developers/applications/me
+2. Ensure the application's URI ends with `/auth/discord/callback`
+3. Create a bot for your application
+4. Fill in the id, secret, and bot token for the application via the NodeBB admin control panel (under "Social Authentication")
+5. Replace your NodeBB FontAwesome fonts with the custom ones included (See below)
+6. Edit your theme's profile.tpl to include a section for Discord information. (See below)
+
 ## Using the Discord Logo:
 
 I have included a modified version of the FontAwesome font that replaces the Discover card (fa-cc-discover) with a simplified Discord logo. I've picked Discover to overwrite because it starts with the same letters, so it's intuitive to search in the NodeBB icon box in case you want to use it elsewhere.
@@ -16,28 +25,20 @@ I recommend keeping a copy of the folder itself in the font folder so that you c
 
 If using the Discover card is unacceptable for you, you can do what I did and make your own version of the FontAwesome font using [FontForge](https://github.com/fontforge/fontforge). Just open up [one of the standard FontAweesome fonts included in NodeBB](https://github.com/NodeBB/NodeBB/tree/master/public/vendor/fontawesome/fonts), scroll down to the icon you want to replace (they're buried deep), delete it and import the svg of your choice. Then export all of the filetypes and replace them in the fontawesome folder.
 
-## Config
-
-1. Create an application -- https://discordapp.com/developers/applications/me
-2. Ensure the application's URI ends with `/auth/discord/callback`
-3. Create a bot for your application
-4. Fill in the id, secret, and bot token for the application via the NodeBB admin control panel (under "Social Authentication")
-5. Edit your theme's profile.tpl to include a section for Discord information. (See below)
-
 ## Profile Information
 A quick panel of the user's full username and their avatar from discord can be added to their profile.
 Just modify profile.tpl and use
 ```
-            <!-- IF discordData -->
-            <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    <!-- IMPORT partials/account/discord_profile_panel.tpl -->
-                </div>
-            </div>
-            <!-- ENDIF discordData -->
+    <!-- IF discordData -->
+    <div class="panel panel-default">
+        <div class="panel-body text-center">
+            <!-- IMPORT partials/account/discord_profile_panel.tpl -->
+        </div>
+    </div>
+    <!-- ENDIF discordData -->
 ```
 or, if you'd like to inject the data directly, use variables such as {discordData.username}.
-Currently you can access username, discriminator, id, and pfp (avatar URL), but theoretically any information that can be pulled from Discord.js can be added to DiscordAuth.filterAccount.
+Currently you can access username, discriminator, id, and pfp (avatar URL), but theoretically any information that can be pulled from Discord.js can be added to [DiscordAuth.filterAccount](https://github.com/selkkie/nodebb-plugin-sso-discord-with-logo/blob/master/library.js#L331).
 
 ## Local Testing URL Override
 
