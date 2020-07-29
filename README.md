@@ -22,6 +22,22 @@ If using the Discover card is unacceptable for you, you can do what I did and ma
 2. Ensure the application's URI ends with `/auth/discord/callback`
 3. Create a bot for your application
 4. Fill in the id, secret, and bot token for the application via the NodeBB admin control panel (under "Social Authentication")
+5. Edit your theme's profile.tpl to include a section for Discord information. (See below)
+
+## Profile Information
+A quick panel of the user's full username and their avatar from discord can be added to their profile.
+Just modify profile.tpl and use
+```
+            <!-- IF discordData -->
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <!-- IMPORT partials/account/discord_profile_panel.tpl -->
+                </div>
+            </div>
+            <!-- ENDIF discordData -->
+```
+or, if you'd like to inject the data directly, use variables such as {discordData.username}.
+Currently you can access username, discriminator, id, and pfp (avatar URL), but theoretically any information that can be pulled from Discord.js can be added to DiscordAuth.filterAccount.
 
 ## Local Testing URL Override
 
@@ -29,9 +45,9 @@ I've added a setting in the admin panel that allows a workaround when testing lo
 (Don't forget to add lvh.me to your application URI in the discord application settings as well!)
 
 ## To Do
-* Restructure so E-mail doesn't need to match to associate (Keeps making new users)
+* Adjust inconsistencies. SSO sometimes prompts to reauth in profile, and multiple users can auth one account.
+* Remove association button?
 * Clone and upload avatar locally instead of linking to Discord server
-* Make Discord handle information viewable from profile
 * Add button to Profile Picture editor that allows you to pull your avatar from Discord?
 
 ## Acknowledgements

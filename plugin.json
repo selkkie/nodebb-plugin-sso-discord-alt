@@ -23,6 +23,10 @@
             "method": "getStrategy"
         },
         {
+            "hook": "filter:user.account",
+            "method": "filterAccount"
+        },
+        {
             "hook": "filter:admin.header.build",
             "method": "addMenuItem"
         }
